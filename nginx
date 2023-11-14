@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/app/helloworld.sock;  # Replace with the correct socket path
+    }
+
+    location /static/ {
+        alias /app/static/;  # Replace with the correct static files path
+    }
+
+    location /media/ {
+        alias /app/media/;  # Replace with the correct media files path
+    }
+
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+        root /app/templates/;  # Replace with the correct templates path
+    }
+}

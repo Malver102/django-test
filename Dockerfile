@@ -20,6 +20,10 @@ RUN python3 -m venv venv && \
 # Copy the Django project files to the container
 COPY . /app/
 
+COPY nginx /etc/nginx/site-available/default
+
+RUN service nginx start
+
 # Configure uWSGI
 CMD ["venv/bin/uwsgi", "--ini", "uwsgi.ini"]
 
