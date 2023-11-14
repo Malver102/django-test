@@ -14,7 +14,7 @@ RUN (echo "daemon off;" >> /etc/nginx/nginx.conf &&\
 
 COPY run.sh /opt/django/run.sh
 
-RUN chmod 764 /opt/django/run.sh
+RUN chmod +x /opt/django/run.sh
 
 VOLUME ["/opt/django/app"]
 EXPOSE 80
