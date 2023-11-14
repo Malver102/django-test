@@ -28,5 +28,3 @@ RUN service nginx start
 
 # Configure uWSGI
 CMD ["venv/bin/uwsgi", "--ini", "/app/uwsgi.ini"]
-
-# Expose the port uWSGI will run on
