@@ -21,7 +21,7 @@ RUN python3 -m venv venv && \
 COPY . /app/
 
 # Configure uWSGI
-CMD ["venv/bin/uwsgi", "--ini", "uwsgi.ini"]
+CMD ["venv/bin/uwsgi", "--ini", "uwsgi.ini", "--logto", "uwsgi.log"]
 
 # Expose the port uWSGI will run on
 EXPOSE 8000
