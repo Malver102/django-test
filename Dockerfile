@@ -1,21 +1,27 @@
-FROM ubuntu:22.04
+# Use an official Ubuntu runtime as a parent image
+FROM ubuntu:latest
 
-RUN (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git python3-venv python3-dev pip python3-setuptools nginx sqlite3 supervisor)
-RUN pip install uwsgi
+# Avoid prompts during package installations
+ENV DEBIAN_FRONTEND=noninteractive
 
-ADD app/requirements.txt /opt/django/app/requirements.txt
-RUN pip install -r /opt/django/app/requirements.txt
-ADD . /opt/django/
+# Update and install necessary dependencies
+RUN apt-get update -y && \
+    apt-get install -y python3 python3-pip python3-venv nginx
 
-RUN (echo "daemon off;" >> /etc/nginx/nginx.conf &&\
-  rm /etc/nginx/sites-enabled/default &&\
-  ln -s /opt/django/django.conf /etc/nginx/sites-enabled/ &&\
-  ln -s /opt/django/supervisord.conf /etc/supervisor/conf.d/)
+# Create and set working directory
+WORKDIR /app
 
-COPY run.sh /opt/django/run.sh
+# Copy and install requirements
+COPY requirements.txt /app/
+RUN python3 -m venv venv && \
+    . venv/bin/activate && \
+    pip install --no-cache-dir -r requirements.txt
 
-RUN chmod +x /opt/django/run.sh
+# Copy the Django project files to the container
+COPY . /app/
 
-VOLUME ["/opt/django/app"]
-EXPOSE 80
-CMD ["/opt/django/run.sh"]
+# Configure uWSGI
+CMD ["venv/bin/uwsgi", "--ini", "uwsgi.ini"]
+
+# Expose the port uWSGI will run on
+EXPOSE 8000
