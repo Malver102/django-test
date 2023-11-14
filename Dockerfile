@@ -22,10 +22,11 @@ COPY . /app/
 
 COPY nginx /etc/nginx/site-available/default
 
+EXPOSE 8000
+
 RUN service nginx start
 
 # Configure uWSGI
 CMD ["venv/bin/uwsgi", "--ini", "/app/uwsgi.ini"]
 
 # Expose the port uWSGI will run on
-EXPOSE 8000
