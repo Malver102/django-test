@@ -26,7 +26,7 @@ WORKDIR /app
 COPY . /app
 
 
-RUN [python3 -m venv /firstsite && \
+RUN [python -m venv /firstsite && \
     source /firstsite/bin/activate && \
     pip install -r /app/requirements.txt
     cd /firstsite   && \
