@@ -28,7 +28,7 @@ COPY . /app
 
 RUN [python -m venv /firstsite && \
     source /firstsite/bin/activate && \
-    pip install -r /app/requirements.txt  && \
+    pip install -r requirements.txt  && \
     cd /firstsite   && \
     django-admin.py startproject firstapp && \
     /firstsite/firstapp/manage.py migrate && \
