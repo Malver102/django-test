@@ -14,6 +14,8 @@
 
 from ubuntu
 
+RUN echo $SHELL
+
 # update packages
 run apt-get update
 
@@ -27,7 +29,7 @@ COPY . /app
 
 
 RUN python3 -m venv firstsite
-RUN source /firstsite/bin/activate
+RUN source /app/firstsite/bin/activate
 RUN pip install -r requirements.txt
 RUN cd /firstsite
 RUN django-admin.py startproject firstapp
