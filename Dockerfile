@@ -20,7 +20,7 @@ run apt-get update
 ENV DEBIAN_FRONTEND=noninteractive
 
 # install required packages
-RUN apt-get install -y python3-venv python3-dev pip nginx
+RUN apt-get install -y python3-venv python3-dev pip nginx software-properties-common
 
 WORKDIR /app
 COPY . /app
