@@ -26,13 +26,13 @@ WORKDIR /app
 COPY . /app
 
 
-RUN ["python -m venv /firstsite && \
-    source /firstsite/bin/activate && \
-    pip install -r requirements.txt  && \
-    cd /firstsite   && \
-    django-admin.py startproject firstapp && \
-    /firstsite/firstapp/manage.py migrate && \
-    DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput"]
+RUN python -m venv /firstsite
+RUN source /firstsite/bin/activate
+RUN pip install -r requirements.txt
+RUN cd /firstsite
+RUN django-admin.py startproject firstapp
+RUN /firstsite/firstapp/manage.py migrate
+RUN DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput
 
 COPY settings /firstsite/firstapp/apps/
 
