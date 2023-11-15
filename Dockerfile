@@ -31,7 +31,7 @@ RUN python3 -m venv firstsite
 Run ls
 RUN /bin/bash -c "source /app/firstsite/bin/activate"
 RUN pip install -r requirements.txt
-RUN django-admin.py startproject firstapp
+RUN /bin/bash -c "django-admin.py startproject firstapp"
 RUN /app/firstsite/firstapp/manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput
 
