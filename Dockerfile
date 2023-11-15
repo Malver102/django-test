@@ -28,7 +28,7 @@ COPY . /app
 
 
 RUN python3 -m venv firstsite
-RUN /bin/bash -c source /app/firstsite/bin/activate
+RUN /bin/bash -c source /firstsite/bin/activate
 RUN pip install -r requirements.txt
 RUN cd /firstsite
 RUN django-admin.py startproject firstapp
