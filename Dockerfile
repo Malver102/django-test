@@ -14,47 +14,29 @@
 
 from ubuntu
 
-maintainer baxeico
-
-run echo "deb http://us.archive.ubuntu.com/ubuntu/ precise-updates main restricted" | tee -a /etc/apt/sources.list.d/precise-updates.list
-
 # update packages
 run apt-get update
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # install required packages
-run apt-get install -y python python-dev python-setuptools python-software-properties
-run apt-get install -y sqlite3
-run apt-get install -y supervisor
+RUN apt-get install -y python3-venv python3-dev pip nginx
 
-# add nginx stable ppa
-run add-apt-repository -y ppa:nginx/stable
-# update packages after adding nginx repository
-run apt-get update
-# install latest stable nginx
-run apt-get install -y nginx
+WORKDIR /app
+COPY . /app
 
-# install pip
-run easy_install pip
 
-# install uwsgi now because it takes a little while
-run pip install uwsgi
+RUN [python3 -m venv /firstsite && \
+    source /firstsite/bin/activate && \
+    pip install -r /app/requirements.txt
+    cd /firstsite   && \
+    django-admin.py startproject firstapp && \
+    /firstsite/firstapp/manage.py migrate && \
+    DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noimput]
 
-# install our code
-add . /home/docker/code/
+RUN chown -R root:uwsgi /app
+RUN chmod -R 750 /app
 
-# setup all the configfiles
-run echo "daemon off;" >> /etc/nginx/nginx.conf
-run rm /etc/nginx/sites-enabled/default
-run ln -s /home/docker/code/nginx-app.conf /etc/nginx/sites-enabled/
-run ln -s /home/docker/code/supervisor-app.conf /etc/supervisor/conf.d/
-
-# run pip install
-run pip install -r /home/docker/code/app/requirements.txt
-
-# install django, normally you would remove this step because your project would already
-# be installed in the code/app/ directory
-run django-admin.py startproject website /home/docker/code/app/
-run cd /home/docker/code/app && ./manage.py syncdb --noinput
 
 expose 80
 cmd ["supervisord", "-n"]
