@@ -28,6 +28,7 @@ COPY . /app
 
 
 RUN python3 -m venv firstsite
+Run ls
 RUN /bin/bash -c source /firstsite/bin/activate
 RUN pip install -r requirements.txt
 RUN cd /firstsite
