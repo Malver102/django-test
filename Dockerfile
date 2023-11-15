@@ -32,11 +32,13 @@ RUN [python3 -m venv /firstsite && \
     cd /firstsite   && \
     django-admin.py startproject firstapp && \
     /firstsite/firstapp/manage.py migrate && \
-    DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noimput]
+    DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput]
+
+COPY settings /firstsite/firstapp/apps/
 
 RUN chown -R root:uwsgi /app
 RUN chmod -R 750 /app
 
 
-expose 80
-cmd ["supervisord", "-n"]
+expose 8000
+cmd ["python", "/firstsite/firstapp/manage.py", "runserver", "0.0.0.0:8000"]
