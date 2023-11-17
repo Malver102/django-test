@@ -20,11 +20,8 @@ RUN mkdir -p /var/log/uwsgi
 
 RUN python3 djangosite/manage.py collectstatic --settings=djangosite.settings.prod
 
-# Supervisor configuration
-COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
-
+COPY conf/emperor.ini /etc/uwsgi/emperor.ini
 
 EXPOSE 80
 
-# CMD to run supervisor
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["uwsgi", "--ini", "conf/uwsgi.ini", "--emperor", "/etc/uwsgi/apps-enabled"]
