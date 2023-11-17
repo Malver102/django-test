@@ -21,4 +21,4 @@ RUN mkdir -p /var/log/uwsgi
 #RUN python3 manage.py collectstatic --settings=djangosite.settings.prod
 
 
-CMD ['uwsgi', '--ini', '/var/www/django-uwsgi-nginx/conf/uwsgi.ini']
+CMD ['bash']
