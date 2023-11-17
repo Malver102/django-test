@@ -28,6 +28,7 @@ RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-prope
 
 RUN python3 -m venv app
 WORKDIR /app
+COPY requirements.txt /app
 ENV PATH="/app/bin:$PATH"
 RUN /bin/bash -c "source /app/bin/activate"
 RUN pip install -r requirements.txt
