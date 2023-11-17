@@ -10,7 +10,8 @@ COPY . /var/www/django-uwsgi-nginx
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /var/www/django-uwsgi-nginx/conf/nginx.conf /etc/nginx/conf.d/
 RUN service nginx restart
-RUN pip -r requirements.txt
+
+RUN pip install -r requirements.txt
 
 RUN ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-available/
 RUN ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-enabled/
