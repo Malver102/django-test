@@ -36,7 +36,7 @@ RUN /app/bin/django-admin startproject helloworld
 COPY . /app
 WORKDIR /app/helloworld
 RUN /app/bin/python3 manage.py migrate
-RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/app/bin/python3 manage.py createsuperuser --username=admin --email=ps@drutex.pl --noinput
+RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/bin/python3 manage.py createsuperuser --username=admin --email=ps@drutex.pl --noinput
 
 
 
