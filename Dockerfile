@@ -38,9 +38,6 @@ RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/firstsite/bin/python3 manage.py create
 
 COPY settings.py /app/firstapp/apps/
 
-RUN chown -R root:uwsgi /app
-RUN chmod -R 750 /app
-
 
 expose 8000
 cmd ["/app/firstsite/bin/python3", "manage.py", "runserver", "0.0.0.0:8000"]
