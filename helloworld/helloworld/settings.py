@@ -25,20 +25,8 @@ SECRET_KEY = 'matxp6k!wbkmdlk)97)ew2qr%&9nr=n#v_-+v#yel4^r&czf7q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
-
-
-# HTTPS Settings
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
-
-# HSTS Settings
-
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
+SESSION_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = None
 
 
 
