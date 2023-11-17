@@ -30,8 +30,9 @@ COPY . /app
 RUN python3 -m venv firstsite
 RUN /bin/bash -c "source /app/firstsite/bin/activate"
 RUN pip install -r requirements.txt
+RUN ls /app/firstsite/bin/
 RUN /app/firstsite/bin/django-admin startproject firstapp
-RUN /app/firstsite/firstapp/manage.py migrate
+RUN python3 /app/firstsite/firstapp/manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput
 
 COPY settings /app/firstsite/firstapp/apps/
@@ -41,4 +42,4 @@ RUN chmod -R 750 /app
 
 
 expose 8000
-cmd ["python", "/firstsite/firstapp/manage.py", "runserver", "0.0.0.0:8000"]
+cmd ["python", "/app/firstsite/firstapp/manage.py", "runserver", "0.0.0.0:8000"]
