@@ -25,9 +25,9 @@ SECRET_KEY = 'matxp6k!wbkmdlk)97)ew2qr%&9nr=n#v_-+v#yel4^r&czf7q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-SESSION_COOKIE_SAMESITE = None
-CSRF_COOKIE_SAMESITE = None
-
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_AGE = 31449600
+CSRF_COOKIE_DOMAIN = '.apps.lab.okd.local'
 
 
 
