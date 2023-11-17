@@ -29,12 +29,10 @@ COPY . /app
 
 RUN python3 -m venv firstsite
 ENV PATH="/app/firstsite/bin:$PATH"
-RUN ls /bin
 RUN /bin/bash -c "source /app/firstsite/bin/activate"
 RUN pip install -r requirements.txt
-RUN ls /app/firstsite/bin/
 RUN /app/firstsite/bin/django-admin startproject firstapp
-RUN python3 /app/firstsite/firstapp/manage.py migrate
+RUN /app/firstsite/firstapp/manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput
 
 COPY settings /app/firstsite/firstapp/apps/
