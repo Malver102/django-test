@@ -33,9 +33,8 @@ RUN /bin/bash -c "source /app/firstsite/bin/activate"
 RUN pip install -r requirements.txt
 RUN /app/firstsite/bin/django-admin startproject firstapp
 WORKDIR /app/firstapp
-run ls /app 
 RUN /app/firstsite/bin/python3 manage.py migrate
-RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/firstsite/bin/python3 manage.py createsuperuser --username=admin --noinput
+RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/firstsite/bin/python3 manage.py createsuperuser --username=admin --email=ps@drutex.pl --noinput
 
 COPY settings /app/firstsite/firstapp/apps/
 
