@@ -18,7 +18,7 @@ RUN ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-enabled/
 
 RUN mkdir -p /var/log/uwsgi
 
-RUN python3 manage.py collectstatic --settings=djangosite.settings.prod
+#RUN python3 manage.py collectstatic --settings=djangosite.settings.prod
 
 
-CMD ['service', 'nginx', 'start']
+CMD ['uwsgi', '--ini', '/var/www/django-uwsgi-nginx/conf/uwsgi.ini']
