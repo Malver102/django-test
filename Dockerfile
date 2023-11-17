@@ -33,7 +33,7 @@ RUN /bin/bash -c "source /app/firstsite/bin/activate"
 RUN pip install -r requirements.txt
 RUN /app/firstsite/bin/django-admin startproject firstapp
 RUN /app/firstsite/firstapp/manage.py migrate
-RUN DJANGO_SUPERUSER_PASSWORD=admin /firstsite/firstapp/manage.py createsuperuser --username=admin --noinput
+RUN DJANGO_SUPERUSER_PASSWORD=admin /app/firstsite/firstapp/manage.py createsuperuser --username=admin --noinput
 
 COPY settings /app/firstsite/firstapp/apps/
 
