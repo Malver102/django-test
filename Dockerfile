@@ -28,11 +28,11 @@ RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-prope
 
 RUN python3 -m venv app
 WORKDIR /app
-COPY . /app
 ENV PATH="/app/bin:$PATH"
 RUN /bin/bash -c "source /app/bin/activate"
 RUN pip install -r requirements.txt
 RUN /app/bin/django-admin startproject helloworld
+COPY . /app
 WORKDIR /app/helloworld
 RUN /app/app/bin/python3 manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/app/bin/python3 manage.py createsuperuser --username=admin --email=ps@drutex.pl --noinput
