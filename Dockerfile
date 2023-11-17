@@ -42,4 +42,4 @@ RUN /app/bin/python3 manage.py createsuperuser --username=admin --email=ps@drute
 
 
 expose 8000
-cmd ["/app/bin/python3", "manage.py", "runserver" '0.0.0.0:8000']
+cmd ['/app/bin/python3', 'manage.py', 'runserver', '0.0.0.0:8000']
