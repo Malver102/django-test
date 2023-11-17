@@ -8,4 +8,5 @@ WORKDIR /var/www/django-uwsgi-nginx
 COPY . /var/www/django-uwsgi-nginx
 
 RUN rm /etc/nginx/sites-enabled/default
+RUN ls /var/www/django-uwsgi-nginx
 
