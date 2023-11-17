@@ -8,7 +8,7 @@ WORKDIR /var/www/django-uwsgi-nginx
 COPY . /var/www/django-uwsgi-nginx
 
 RUN python3 tools/django_secret_keygen.py
-RUN pyrhon3 -m venv venv
+RUN python3 -m venv venv
 
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /var/www/django-uwsgi-nginx/conf/nginx.conf /etc/nginx/conf.d/
