@@ -1,40 +1,109 @@
-# Django, uWSGI and Nginx in a container
+# django-uwsgi-nginx
+Example of a Django site served by uWSGI and nginx for testing and education purposes.
 
-This Dockerfile allows you to build a Docker container with a fairly standard
-and speedy setup for Django with uWSGI and Nginx.
+Implements a simple "Hello, world!", but with a few extras (templates, CSS, 
+images, etc.). Follows Django best practices as much as possible.
 
-uWSGI from a number of benchmarks has shown to be the fastest server 
-for python applications and allows lots of flexibility.
+**Note: this example should be considered insecure! Although basic security settings are
+in place, make sure you do your own research on site security! Start with [the Django documentation](https://docs.djangoproject.com/en/1.9/topics/security/), for example.**
 
-Nginx has become the standard for serving up web applications and has the 
-additional benefit that it can talk to uWSGI using the uWSGI protocol, further
-elinimating overhead. 
+Installation steps on Debian 8
+------------------------------
 
-Most of this setup comes from the excellent tutorial on 
-https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html
+- Install nginx and uWSGI as system-wide services.
 
-This repo is a fork of https://github.com/dockerfiles/django-uwsgi-nginx,
-I made some fixes to have the image working out-of-the-box.
+    ```
+    apt-get update && apt-get upgrade
+    apt-get install nginx
+    apt-get install uwsgi
+    ```
 
-Feel free to clone this and modify it to your liking. And feel free to 
-contribute patches.
+- `git clone` this repo, for example in `/var/www`. Note: if you choose a different 
+location, change `nginx.conf` and `uwsgi.ini` accordingly after cloning.
 
-### Build and run
-* docker build -t webapp .
-* docker run -d -p 80:80 webapp
+    ```
+    cd /var/www
+    git clone https://github.com/nicodv/django-uwsgi-nginx.git
+    ```
 
-### Test
+- Generate a Django secret key using the supplied script 
+(`python django-uwsgi-nginx/tools/django_secret_keygen.py`), and put it in the `uwsgi.ini` file.
 
-`curl localhost`
+- Create a virtualenv with the latest `pip`, `setuptools`, and `django` packages, 
+for example in `/var/www/django-uwsgi-nginx/venv`. Note: if you choose a different 
+location, change `uwsgi.ini` accordingly.
 
-You should see the HTML source of Django welcome page.
+- Install the Python plugin to uWSGI. Note: I assume Python 3 here. The Python 2 
+command is the same, minus the `3`. Also, if you're using Python 2, edit 
+`uwsgi.ini` accordingly by editing the plugin name.
 
-### How to insert your application
+    ```
+    apt-get install uwsgi-plugin-python3
+    ```
 
-In /app currently a django project is created with startproject. You will
-probably want to replace the content of /app with the root of your django
-project.
+- Remove nginx's default site config and make a symbolic link to the 
+`nginx.conf` file in the `/etc/nginx/conf.d` directory.
 
-uWSGI chdirs to /app so in uwsgi.ini you will need to make sure the python path
-to the wsgi.py file is relative to that.
+    ```
+    rm /etc/nginx/sites-enabled/default
+    ln -s /var/www/django-uwsgi-nginx/conf/nginx.conf /etc/nginx/conf.d/
+    service nginx restart
+    ```
 
+- Make symbolic links of the `uwsgi.ini` file to the `/etc/uwsgi/apps-available` 
+and `/etc/uwsgi/apps-enabled` directories.
+
+    ```
+    ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-available/
+    ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-enabled/
+    ```
+
+- Hack the `uwsgi` service to use the so-called emperor, which will automatically 
+serve any `.ini` file in `/etc/uwsgi/apps-enabled`. Do this by editing 
+`/etc/init.d/uwsgi` and adding `--emperor /etc/uwsgi/apps-enabled` after the 
+service start command so that it reads 
+`"Starting $DESC" "$NAME" --emperor /etc/uwsgi/apps-enabled`). Then reload and 
+restart the service:
+
+    ```
+    systemctl daemon-reload
+    service uwsgi restart
+    ```
+
+- Create the log directories.
+
+    ```
+    mkdir -p /var/log/uwsgi
+    ```
+
+- Set permissions correctly for user `www-data`. Note: if you run as a different 
+user, change `/etc/nginx/nginx.conf`, `uwsgi.ini`, and these commands accordingly.
+
+    ```
+    chown -R www-data:www-data /var/www/django-uwsgi-nginx/
+    chown www-data:www-data /var/log/uwsgi/
+    ```
+- Copy all static folders into the `STATIC_ROOT` directory:
+
+    ```
+    python manage.py collectstatic --settings=djangosite.settings.prod
+    ```
+
+- Check it out!
+
+    ```
+    http://<your.ip.add.ress>/helloworld/
+    ```
+
+Debugging
+---------
+nginx logs can be found in `/var/log/nginx`, and uWSGI logs in `/var/log/uwsgi`. 
+You can also try to run the uWSGI server manually with:
+
+    uwsgi --ini /var/www/django-uwsgi-nginx/conf/uwsgi.ini
+
+Other Notes
+-----------
+- This example is set up in such a way that by changing the `DJANGO_SETTINGS_MODULE` 
+reference in `uwsgi.ini`, you can easily switch between site settings. You can, 
+for example, choose development server settings by referring to `%(site).settings.dev`.
