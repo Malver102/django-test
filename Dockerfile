@@ -32,7 +32,7 @@ COPY . /app
 ENV PATH="/app/bin:$PATH"
 RUN /bin/bash -c "source /app/bin/activate"
 RUN pip install -r requirements.txt
-RUN /app/app/bin/django-admin startproject helloworld
+RUN /app/bin/django-admin startproject helloworld
 WORKDIR /app/helloworld
 RUN /app/app/bin/python3 manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/app/bin/python3 manage.py createsuperuser --username=admin --email=ps@drutex.pl --noinput
