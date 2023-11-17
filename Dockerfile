@@ -21,7 +21,7 @@ run apt-get update
 ENV DEBIAN_FRONTEND=noninteractive
 
 # install required packages
-RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common
+RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim
 
 
 
