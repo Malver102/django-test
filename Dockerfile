@@ -16,4 +16,4 @@ RUN DJANGO_SUPERUSER_PASSWORD=admin python3 manage.py createsuperuser --username
 
 EXPOSE 8000
 
-CMD ['python3', 'manage.py', 'runserver', '0.0.0.0:8000']
+CMD ['python3', 'manage.py', 'runserver', '0.0.0.0:8000', 'https://django-test-git-django-test.apps.lab.okd.local', 'django-test-git-django-test.apps.lab.okd.local']
