@@ -8,5 +8,20 @@ WORKDIR /var/www/django-uwsgi-nginx
 COPY . /var/www/django-uwsgi-nginx
 
 RUN rm /etc/nginx/sites-enabled/default
-RUN ls /var/www/django-uwsgi-nginx
+RUN ln -s /var/www/django-uwsgi-nginx/conf/nginx.conf /etc/nginx/conf.d/
+RUN service nginx restart
 
+RUN ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-available/
+RUN ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-enabled/
+
+
+
+RUN mkdir -p /var/log/uwsgi
+
+RUN chown -R www-data:www-data /var/www/django-uwsgi-nginx/
+RUN chown www-data:www-data /var/log/uwsgi/
+
+RUN python3 manage.py collectstatic --settings=djangosite.settings.prod
+
+
+CMD ['service', 'nginx', 'start']
