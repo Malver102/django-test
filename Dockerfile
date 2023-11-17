@@ -33,6 +33,7 @@ RUN /bin/bash -c "source /app/firstsite/bin/activate"
 RUN pip install -r requirements.txt
 RUN /app/firstsite/bin/django-admin startproject firstapp
 WORKDIR /app/firstsite/firstapp
+run ls
 RUN /app/firstsite/bin/python3 manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/firstsite/bin/python3 manage.py createsuperuser --username=admin --noinput
 
@@ -43,4 +44,4 @@ RUN chmod -R 750 /app
 
 
 expose 8000
-cmd ["python", "/app/firstsite/firstapp/manage.py", "runserver", "0.0.0.0:8000"]
+cmd ["/app/firstsite/bin/python3", "manage.py", "runserver", "0.0.0.0:8000"]
