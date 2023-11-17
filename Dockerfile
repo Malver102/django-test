@@ -12,4 +12,8 @@ RUN pip install -r requirements.txt
 
 RUN python3 manage.py migrate
 
-RUN DJANGO_SUPERUSER_PASSWORD=admin python3 manage.py createsuperuser --username admin --email admin@mail.com
+RUN DJANGO_SUPERUSER_PASSWORD=admin python3 manage.py createsuperuser --username=admin --email=admin@mail.com
+
+EXPOSE 8000
+
+CMD ['python3', 'manage.py', 'runserver', '0.0.0.0:8000']
