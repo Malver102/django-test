@@ -36,7 +36,7 @@ WORKDIR /app/firstapp
 RUN /app/firstsite/bin/python3 manage.py migrate
 RUN DJANGO_SUPERUSER_PASSWORD=admin  /app/firstsite/bin/python3 manage.py createsuperuser --username=admin --email=ps@drutex.pl --noinput
 
-COPY settings /app/firstsite/firstapp/apps/
+COPY settings.py /app/firstapp/apps/
 
 RUN chown -R root:uwsgi /app
 RUN chmod -R 750 /app
