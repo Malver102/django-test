@@ -18,9 +18,6 @@ RUN ln -s /var/www/django-uwsgi-nginx/conf/uwsgi.ini /etc/uwsgi/apps-enabled/
 
 RUN mkdir -p /var/log/uwsgi
 
-RUN chown -R www-data:www-data /var/www/django-uwsgi-nginx/
-RUN chown www-data:www-data /var/log/uwsgi/
-
 RUN python3 manage.py collectstatic --settings=djangosite.settings.prod
 
 
