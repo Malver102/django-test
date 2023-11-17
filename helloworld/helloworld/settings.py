@@ -25,7 +25,7 @@ SECRET_KEY = 'matxp6k!wbkmdlk)97)ew2qr%&9nr=n#v_-+v#yel4^r&czf7q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CSRF_TRUSTED_ORIGINS = ['http://.*', 'http://django-test-git-django-test.apps.lab.okd.local', 'http://www.django-test-git-django-test.apps.lab.okd.local']
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
 
 
 # HTTPS Settings
@@ -44,7 +44,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 
 # A list of strings representing the host/domain names that this Django site can serve.
-ALLOWED_HOSTS = ['*', 'django-test-git-django-test.apps.lab.okd.local', 'https://django-test-git-django-test.apps.lab.okd.local' ]
+ALLOWED_HOSTS = ['http://localhost', 'http://127.0.0.1', '*', 'django-test-git-django-test.apps.lab.okd.local', 'https://django-test-git-django-test.apps.lab.okd.local' ]
 
 
 # Application definition
