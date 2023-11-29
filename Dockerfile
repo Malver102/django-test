@@ -22,13 +22,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
 
 # install required packages
-RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim uwsgi
+RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim
 
 
 
 RUN python3 -m venv $VENVLOCATION
 ENV PATH="/opt/venv/bin:$PATH"
-RUN /bin/bash -c "source /opt/venv/bin/activate"
+
 
 
 WORKDIR /var/www/django_app
