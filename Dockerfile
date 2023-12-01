@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ubuntu
+FROM ubuntu
 
 ARG VENVLOCATION=/opt/venv
 # update packages
-run apt-get update
+RUN apt-get update
 
 ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
@@ -48,4 +48,3 @@ RUN /etc/init.d/nginx restart
 
 CMD [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
-s
