@@ -24,13 +24,20 @@ ENV DEBIAN_FRONTEND=noninteractive
 # install required packages
 RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim libpcre3-dev uwsgi-plugin-python3
 
-USER 1000730000
+
+RUN useradd -u 1000730000 psuszko
 
 
 RUN python3 -m venv $VENVLOCATION
 ENV PATH="/venv/bin:$PATH"
 
+RUN useradd -u 1000730000 psuszko
+
+
 WORKDIR /var/www/django_app
+
+RUN chown -R psuszko:psuszko /var/www/django_app
+
 COPY django_app/. /var/www/django_app/
 
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
@@ -50,5 +57,6 @@ COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/
 RUN /etc/init.d/nginx restart
 
 
+USER psuszko
 
 CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
