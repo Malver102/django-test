@@ -39,6 +39,6 @@ COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/
 
 RUN /etc/init.d/nginx restart
 
-ENTRYPOINT [ "/usr/local/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
+ENTRYPOINT [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
 CMD ["/bin/bash"]
