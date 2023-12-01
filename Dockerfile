@@ -4,6 +4,8 @@ ARG VENVLOCATION=/venv
 # update packages
 RUN apt-get update
 
+USER root
+
 ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
 
