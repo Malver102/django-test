@@ -35,6 +35,7 @@ COPY django_app/. /var/www/django_app/
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
 
 RUN mkdir -p /log/uwsgi/vassals
+RUN mkdir -p /log/nginx
 
 RUN chown -R www-data:www-data /log/uwsgi
 RUN chown -R www-data:www-data /log/nginx
