@@ -24,7 +24,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # install required packages
 RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim libpcre3-dev uwsgi-plugin-python3
 
-USER www-data
+USER root
 
 RUN chown -R www-data:www-data /var/www/django_app/
 RUN chown -R www-data:www-data /var/log/uwsgi
