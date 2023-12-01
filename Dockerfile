@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
 
 # install required packages
-RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim libpcre3-dev uwsgi-plugin-python3
+RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim libpcre3-dev uwsgi-plugin-python3 uwsgi
 
 
 RUN python3 -m venv $VENVLOCATION
