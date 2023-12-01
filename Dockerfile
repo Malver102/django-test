@@ -33,8 +33,8 @@ ENV PATH="/bin/bash:$PATH"
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
-ENTRYPOINT [ "/etc/init.d/nginx restart" ]
+ENTRYPOINT [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
 EXPOSE 80
 
-CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
+CMD  [ "/etc/init.d/nginx", "restart" ]
