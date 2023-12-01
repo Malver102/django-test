@@ -26,11 +26,6 @@ RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-prope
 
 USER root
 
-RUN chown -R www-data:www-data /var/www/django_app/
-RUN chown -R www-data:www-data /var/log/uwsgi
-RUN chown -R www-data:www-data /var/log/nginx
-RUN chmod -R 764 /var/log/uwsgi
-RUN chmod -R 764 /var/log/nginx
 
 RUN python3 -m venv $VENVLOCATION
 ENV PATH="/venv/bin:$PATH"
@@ -42,11 +37,11 @@ RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted
 
 RUN mkdir -p /var/log/uwsgi/vassals
 
-#RUN chown -R www-data:www-data /var/www/django_app/
-#RUN chown -R www-data:www-data /var/log/uwsgi
-#RUN chown -R www-data:www-data /var/log/nginx
-#RUN chmod -R 764 /var/log/uwsgi
-#RUN chmod -R 764 /var/log/nginx
+RUN chown -R www-data:www-data /var/www/django_app/
+RUN chown -R www-data:www-data /var/log/uwsgi
+RUN chown -R www-data:www-data /var/log/nginx
+RUN chmod -R 764 /var/log/uwsgi
+RUN chmod -R 764 /var/log/nginx
 
 
 COPY config/default /etc/nginx/sites-available/
