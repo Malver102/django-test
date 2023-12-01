@@ -26,6 +26,13 @@ RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-prope
 
 USER www-data
 
+RUN chown -R www-data:www-data /var/www/django_app/
+RUN chown -R www-data:www-data /opt
+RUN chown -R www-data:www-data /var/log/uwsgi
+RUN chown -R www-data:www-data /var/log/nginx
+RUN chmod -R 764 /var/log/uwsgi
+RUN chmod -R 764 /var/log/nginx
+
 RUN python3 -m venv $VENVLOCATION
 ENV PATH="/opt/venv/bin:$PATH"
 
