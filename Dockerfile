@@ -37,7 +37,7 @@ RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
-RUN /etc/init.d/uwsgi restart
+RUN /etc/init.d/nginx restart
 
 ENTRYPOINT [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
