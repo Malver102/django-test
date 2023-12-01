@@ -29,19 +29,16 @@ RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-prope
 RUN python3 -m venv $VENVLOCATION
 ENV PATH="/opt/venv/bin:$PATH"
 
- 
-
 WORKDIR /var/www/django_app
 COPY django_app/. /var/www/django_app/
- 
-RUN chmod +x config/run.sh
 
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
 
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
+RUN /etc/init.d/uwsgi restart
 
-ENTRYPOINT [ "config/run.sh" ]
+ENTRYPOINT [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
 
