@@ -50,5 +50,5 @@ RUN /etc/init.d/nginx restart
 
 USER www-data
 
-CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
-
+#CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
+CMD ["/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini", "--uid", "www-data", "--gid", "www-data"]
