@@ -34,13 +34,13 @@ COPY django_app/. /var/www/django_app/
 
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
 
-RUN mkdir -p /log/uwsgi/vassals
-RUN mkdir -p /log/nginx
+RUN mkdir -p /var/log/uwsgi/vassals
+#RUN mkdir -p /var/log/nginx
 
-RUN chown -R www-data:www-data /log/uwsgi
-RUN chown -R www-data:www-data /log/nginx
-RUN chmod -R 764 /log/uwsgi
-RUN chmod -R 764 /log/nginx
+#RUN chown -R www-data:www-data /var/log/uwsgi
+#RUN chown -R www-data:www-data /var/log/nginx
+#RUN chmod -R 764 /var/log/uwsgi
+#RUN chmod -R 764 /var/log/nginx
 
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
