@@ -36,15 +36,19 @@ RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted
 
 RUN mkdir -p /var/log/uwsgi/vassals
 
+RUN chown -R www-data:www-data /var/www/django_app/
 RUN chown -R www-data:www-data /var/log/uwsgi
 RUN chown -R www-data:www-data /var/log/nginx
 RUN chmod -R 764 /var/log/uwsgi
 RUN chmod -R 764 /var/log/nginx
 
+
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
 RUN /etc/init.d/nginx restart
+
+USER www-data
 
 CMD [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
