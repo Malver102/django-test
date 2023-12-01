@@ -4,8 +4,6 @@ ARG VENVLOCATION=/venv
 # update packages
 RUN apt-get update
 
-USER root
-
 ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
 
@@ -37,5 +35,6 @@ COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/
 
 RUN /etc/init.d/nginx restart
 
+EXPOSE 80
 
 CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
