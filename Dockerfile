@@ -22,7 +22,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
 
 # install required packages
-RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim libpcre3-dev uwsgi-plugin-python3
+RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-properties-common vim libpcre3-dev uwsgi-plugin-python3 supervisor
 
 
 RUN python3 -m venv $VENVLOCATION
@@ -46,10 +46,12 @@ RUN chown -R www-data:www-data /usr/bin
 
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
+COPY config/supervisor.conf /etc/supervisor/conf.d/
 
 RUN /etc/init.d/nginx restart
 
 
-USER psuszko
+RUN supervisorctl reread
+RUN supervisorctl update
 
-CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
+CMD [ "supervisorctl", "start", "django_app" ]
