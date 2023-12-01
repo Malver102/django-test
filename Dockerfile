@@ -41,4 +41,4 @@ RUN /etc/init.d/uwsgi restart
 
 ENTRYPOINT [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
-
+CMD ["/bin/bash"]
