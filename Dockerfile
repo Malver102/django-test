@@ -1,6 +1,6 @@
 FROM ubuntu
 
-ARG VENVLOCATION=/venv
+ARG VENVLOCATION=/opt/venv
 # update packages
 RUN apt-get update
 
@@ -12,7 +12,7 @@ RUN apt-get install -y python3-venv python3-dev python3-pip nginx software-prope
 
 
 RUN python3 -m venv $VENVLOCATION
-ENV PATH="/venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH"
 
 
 WORKDIR /var/www/django_app
