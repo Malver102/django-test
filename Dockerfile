@@ -48,3 +48,4 @@ RUN /etc/init.d/nginx restart
 
 CMD [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
+s
