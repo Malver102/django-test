@@ -51,7 +51,7 @@ COPY config/supervisor.conf /etc/supervisor/conf.d/
 RUN /etc/init.d/nginx restart
 
 
-RUN supervisorctl reread
-RUN supervisorctl update
+RUN supervisorctl -c /etc/supervisor/supervisord.conf reread
+RUN supervisorctl -c /etc/supervisor/supervisord.conf update
 
-CMD [ "supervisorctl", "start", "django_app" ]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
