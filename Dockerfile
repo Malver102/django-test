@@ -29,7 +29,7 @@ RUN chown -R www-data:www-data /usr/bin
 #RUN chmod -R 764 /var/log/uwsgi
 #RUN chmod -R 764 /var/log/nginx
 
-
+ENV PATH="/bin/bash:$PATH" 
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
