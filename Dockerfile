@@ -36,7 +36,7 @@ RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted
 
 RUN mkdir -p /var/log/uwsgi/vassals
 RUN chown -R www-data:www-data /var/log/uwsgi 
-RUN chmod -R 666 /var/log/uwsgi 
+RUN chmod -R 750 /var/log/uwsgi 
 
 #RUN chown -R www-data:www-data /opt/venv
 #RUN chown -R www-data:www-data /var/www/django_app
