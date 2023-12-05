@@ -42,10 +42,11 @@ RUN mkdir -p /var/log/uwsgi/vassals
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
-ENTRYPOINT [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
+
+RUN service nginx restart
 
 EXPOSE 80
 
-CMD [ "service", "nginx", "restart"]
-
+ENTRYPOINT [ "/usr/bin/uwsgi" ]
+CMD [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
 
