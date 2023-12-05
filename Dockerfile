@@ -37,8 +37,8 @@ RUN /etc/init.d/nginx restart
 
 USER www-data
 
-ENTRYPOINT [ "uwsgi" ]
+# ENTRYPOINT [ "uwsgi" ]
 
 EXPOSE 80
-CMD ["--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
+CMD ["uwsgi" "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
 
