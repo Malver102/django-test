@@ -25,9 +25,9 @@ RUN mkdir -p /var/log/uwsgi/vassals
 RUN chown -R www-data:www-data /var/www/django_app/
 RUN chown -R www-data:www-data /var/log/uwsgi
 RUN chown -R www-data:www-data /var/log/nginx
-RUN chmod -R 764 /var/www/django_app/
-RUN chmod -R 764 /var/log/uwsgi
-RUN chmod -R 764 /var/log/nginx
+RUN chmod -R 666 /var/www/django_app/
+RUN chmod -R 664 /var/log/uwsgi
+RUN chmod -R 664 /var/log/nginx
 
 
 
