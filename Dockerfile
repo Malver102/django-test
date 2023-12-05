@@ -29,11 +29,14 @@ RUN chmod -R 764 /var/www/django_app/
 RUN chmod -R 764 /var/log/uwsgi
 RUN chmod -R 764 /var/log/nginx
 
-USER www-data
+
 
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 RUN /etc/init.d/nginx restart
+
+USER www-data
+
 ENTRYPOINT [ "uwsgi" ]
 
 EXPOSE 80
