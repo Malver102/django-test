@@ -32,9 +32,10 @@ RUN chmod -R 764 /var/log/nginx
 ENV PATH="/bin/bash:$PATH" 
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
+RUN uwsgi --ini /etc/uwsgi/apps-enabled/uwsgi.ini
 
-ENTRYPOINT [ "service nginx restart" ]
+ENTRYPOINT [ "/etc/init.d/nginx" ]
 
 EXPOSE 80
+CMD ["restart"]
 
-CMD [ "uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
