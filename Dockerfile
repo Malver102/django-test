@@ -46,6 +46,6 @@ ENTRYPOINT [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
 
 EXPOSE 80
 
-CMD [ "/etc/init.d/nginx" , "restart"]
+CMD [ "service", "nginx", "restart"]
 
 
