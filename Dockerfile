@@ -42,7 +42,7 @@ RUN chmod -R 664 /var/log/nginx
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 RUN /etc/init.d/nginx restart
-USER www-data 
+###USER root
 ENTRYPOINT [ "/usr/bin/uwsgi" ]
 
 EXPOSE 8000
