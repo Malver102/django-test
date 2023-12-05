@@ -43,8 +43,8 @@ COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 RUN /etc/init.d/nginx restart
 USER www-data 
-# ENTRYPOINT [ "uwsgi" ]
+ENTRYPOINT [ "/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini" ]
 
 EXPOSE 80
-CMD ["/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
+CMD ["/etc/init.d/nginx", "restart"]
 
