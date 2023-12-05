@@ -41,16 +41,14 @@ RUN chown -R www-data:www-data /var/www/django_app \
     && chmod -R 664 /var/log/nginx
 
 
-
+COPY config/run.sh /
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
-
-RUN service nginx restart
-
+RUN chmod +x /run.sh
 
 EXPOSE 80
+ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/run.sh" ]
 
-ENTRYPOINT [ "/usr/bin/uwsgi" ]
-CMD [ "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
 
