@@ -40,5 +40,5 @@ USER www-data
 # ENTRYPOINT [ "uwsgi" ]
 
 EXPOSE 80
-CMD ["uwsgi" "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
+CMD ["/usr/bin/uwsgi", "--ini", "/etc/uwsgi/apps-enabled/uwsgi.ini"]
 
