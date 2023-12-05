@@ -1,5 +1,8 @@
 FROM ubuntu
 
+
+USER root
+
 ARG VENVLOCATION=/opt/venv
 # update packages
 RUN apt-get update
@@ -44,6 +47,7 @@ COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/
 
 
 RUN service nginx restart
+
 
 EXPOSE 80
 
