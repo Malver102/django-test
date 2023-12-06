@@ -37,7 +37,9 @@ RUN mkdir -p /var/log/uwsgi/vassals \
 
 
 RUN chown -R www-data:www-data /var/log/uwsgi \
+    && chown -R www-data:www-data /opt/venv \
     && chown -R www-data:www-data /var/log/nginx \
+    && chmod -R 755 /opt/venv \
     && chmod -R 664 /var/log/uwsgi \
     && chmod -R 664 /var/log/nginx
 
