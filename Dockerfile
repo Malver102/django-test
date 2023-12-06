@@ -7,11 +7,6 @@ ARG VENVLOCATION=/opt/venv
 # update packages
 RUN apt-get update
 
-ENV DJANGO_DB_NAME=default
-ENV DJANGO_SUPERUSER_USERNAME=admin
-ENV DJANGO_SUPERUSER_EMAIL=admin@my.company
-ENV DJANGO_SUPERUSER_PASSWORD=admin
-
 
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -52,8 +47,7 @@ COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
 RUN python3 /var/www/django_app/manage.py collectstatic \
-    && python3 /var/www/django_app/manage.py migrate \
-    && python /var/www/django_app/manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL
+    && python3 /var/www/django_app/manage.py migrate 
 
 RUN chmod +x /run.sh
 
