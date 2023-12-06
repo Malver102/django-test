@@ -52,7 +52,11 @@ COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
 RUN python3 /var/www/django_app/manage.py collectstatic \
-    && python3 /var/www/django_app/manage.py migrate
+    && python3 /var/www/django_app/manage.py migrate \
+    && python /var/www/django_app/manage.py createsuperuser \
+        --noinput \
+        --username $DJANGO_SUPERUSER_USERNAME \
+        --email $DJANGO_SUPERUSER_USERNAME
 
 RUN chmod +x /run.sh
 
