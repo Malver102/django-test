@@ -43,6 +43,9 @@ COPY config/run.sh /
 COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
+RUN /opt/venv/bin/python3 /var/www/django_app/manage.py migrate \
+    && /opt/venv/bin/python3 /var/www/django_app/manage.py collectstatic
+
 RUN chmod +x /run.sh
 
 EXPOSE 80
