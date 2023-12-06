@@ -26,11 +26,10 @@ server {
    
         # for for problem uwsgi_response_writev_headers_and_body_do
         uwsgi_max_temp_file_size 30480m;
-        uwsgi_ignore_client_abort on;
-
-        location /static/ {
+        uwsgi_ignore_client_abort on;   
+    }
+    location /static/ {
             autoindex on;
             alias /var/www/django_app/static/;
         }
-    }
 } 
