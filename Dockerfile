@@ -53,7 +53,7 @@ COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/
 
 RUN python3 /var/www/django_app/manage.py collectstatic \
     && python3 /var/www/django_app/manage.py migrate \
-    && python /var/www/django_app/manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL --password DJANGO_SUPERUSER_PASSWORD
+    && python /var/www/django_app/manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL
 
 RUN chmod +x /run.sh
 
