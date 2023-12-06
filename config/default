@@ -30,7 +30,7 @@ server {
 
         location /static/ {
             autoindex on;
-            alias /var/www/django_app;
+            alias /var/www/django_app/static/;
         }
     }
 } 
