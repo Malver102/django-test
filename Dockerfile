@@ -7,6 +7,13 @@ ARG VENVLOCATION=/opt/venv
 # update packages
 RUN apt-get update
 
+ENV DJANGO_DB_NAME=default
+ENV DJANGO_SU_NAME=admin
+ENV DJANGO_SU_EMAIL=admin@my.company
+ENV DJANGO_SU_PASSWORD=admin
+
+
+
 ENV DEBIAN_FRONTEND=noninteractive
 # ENV PIP_ROOT_USER_ACTION=ignore
 
