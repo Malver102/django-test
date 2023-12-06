@@ -45,7 +45,7 @@ COPY config/default /etc/nginx/sites-available/
 COPY config/uwsgi.ini /etc/uwsgi/apps-enabled/ 
 
 RUN python3 /var/www/django_app/manage.py migrate \
-    && python3 /var/www/django_app/manage.py collectstatic
+    && python3 /var/www/django_app/manage.py collectstatic --noinput
 
 RUN chmod +x /run.sh
 
