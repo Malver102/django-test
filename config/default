@@ -29,7 +29,7 @@ server {
         uwsgi_ignore_client_abort on;
 
         location /static {
-            alias /var/www/django_app/_static;
+            alias /var/www/django_app/static;
         }
     }
 } 
