@@ -36,19 +36,12 @@ RUN mkdir -p /var/log/uwsgi/vassals \
     && mkdir -p /var/www/django_app/static
 
 
-#RUN chown -R www-data:www-data /var/log/uwsgi \
-#    && chown -R www-data:www-data /var/www/django_app \
-#    && chown -R www-data:www-data /opt/venv \
-#    && chown -R www-data:www-data /var/log/nginx \
-##    && chmod -R 775 /opt/venv \
- #   && chmod -R 664 /var/www/django_app \
- #   && chmod -R 664 /var/log/uwsgi \
- #   && chmod -R 664 /var/log/nginx
-
 RUN chown -R www-data:www-data /opt/venv \
-    && chmod -R 775 /opt/venv \
+    && chmod -R 777 /opt/venv \
     && chown -R www-data:www-data /var/www/django_app/db.sqlite3 \
-    && chmod -R 776 /var/www/django_app/db.sqlite3
+    && chmod -R 776 /var/www/django_app/db.sqlite3 \
+    && chown -R www-data:www-data /var/www/django_app \
+    && chmod -R 664 /var/www/django_app 
 
 COPY config/run.sh /
 COPY config/default /etc/nginx/sites-available/
