@@ -48,7 +48,7 @@ RUN mkdir -p /var/log/uwsgi/vassals \
 RUN chown -R www-data:www-data /opt/venv \
     && chmod -R 775 /opt/venv \
     && chown -R www-data:www-data /var/www/django_app/db.sqlite3 \
-    && chmod -R 774 /var/www/django_app/db.sqlite3
+    && chmod -R 776 /var/www/django_app/db.sqlite3
 
 COPY config/run.sh /
 COPY config/default /etc/nginx/sites-available/
