@@ -46,7 +46,9 @@ RUN mkdir -p /var/log/uwsgi/vassals \
  #   && chmod -R 664 /var/log/nginx
 
 RUN chown -R www-data:www-data /opt/venv \
-    && chmod -R 775 /opt/venv
+    && chmod -R 775 /opt/venv \
+    && chown -R www-data:www-data /var/www/django_app \
+    && chmod -R 774 /var/www/django_app \
 
 COPY config/run.sh /
 COPY config/default /etc/nginx/sites-available/
