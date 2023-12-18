@@ -40,11 +40,13 @@ RUN mkdir -p /var/log/uwsgi/vassals \
 #    && chown -R www-data:www-data /var/www/django_app \
 #    && chown -R www-data:www-data /opt/venv \
 #    && chown -R www-data:www-data /var/log/nginx \
-##    && chmod -R 755 /opt/venv \
+##    && chmod -R 775 /opt/venv \
  #   && chmod -R 664 /var/www/django_app \
  #   && chmod -R 664 /var/log/uwsgi \
  #   && chmod -R 664 /var/log/nginx
 
+RUN chown -R www-data:www-data /opt/venv \
+    && chmod -R 775 /opt/venv
 
 COPY config/run.sh /
 COPY config/default /etc/nginx/sites-available/
